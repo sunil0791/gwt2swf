@@ -53,9 +53,9 @@ public class GWTFlash implements EntryPoint {
   Button toStringBtn = new Button("to string");
 
   Button procSizeBtn = new Button("proc size");
-  
+
   TextArea traceArea = new TextArea();
-  
+
   Panel panel = new VerticalPanel();
 
   public void onModuleLoad() {
@@ -74,10 +74,13 @@ public class GWTFlash implements EntryPoint {
     }
 
     String swfFile = "pasek.swf";
+    
     SWFSettings commonSettings = new SWFSettings();
-    commonSettings.setVersion(minPlayerVersion);
-
-    final SWFWidget swfWidget = new SWFWidget(swfFile, "100%", "100%", commonSettings);
+    commonSettings.setMinPlayerVersion(minPlayerVersion);
+    commonSettings.setInnerDivTextForFlashPlayerNotFound("Here should be a my.swf movieclip.");
+    
+    final SWFWidget swfWidget = new SWFWidget(swfFile, "100%", "100%",
+        commonSettings);
 
     swfWidget.addFlashVar("var1", "value1");
     swfWidget.addFlashVar("var2", "value2");
@@ -88,6 +91,9 @@ public class GWTFlash implements EntryPoint {
     swfWidget.addParam("paramName1", "paramValue1");
     swfWidget.addParam("paramName2", "paramValue2");
 
+    swfWidget.setWidth("20px");
+    swfWidget.setPixelSize(20, 30);
+    swfWidget.setMinPlayerVersion(new PlayerVersion(9, 0, 14));
     // desc.setVersion(new PlayerVersion(12));
 
     // swfWidget.setSize("150", "150");
@@ -95,6 +101,12 @@ public class GWTFlash implements EntryPoint {
     panel.add(swfWidget);
 
     RootPanel.get().add(addBtn);
+    RootPanel.get().add(new Button("resize", new ClickListener() {
+      public void onClick(Widget sender) {
+        swfWidget.setSize("400px", "300px");
+      }
+    }));
+
     RootPanel.get().add(removeBtn);
     RootPanel.get().add(showBtn);
     RootPanel.get().add(hideBtn);
@@ -127,6 +139,7 @@ public class GWTFlash implements EntryPoint {
       public void onClick(Widget sender) {
         // panel.remove(swfWidget);
         swfWidget.setVisible(false);
+        swfWidget.hide();
         // popupPanel.hide();
       }
     });
