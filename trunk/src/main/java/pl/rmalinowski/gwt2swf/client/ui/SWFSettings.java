@@ -28,178 +28,100 @@ import pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil;
 public class SWFSettings {
 	// swf, id, w, h, ver, c, useExpressInstall, quality, xiRedirectUrl,
 	// redirectUrl, detectKey
-	public static final String DEFAULT_BGCOLOR = "ffffff";
+	// public static final String DEFAULT_BGCOLOR = "ffffff";
 
 	public static final String DEFAULT_INNER_DIV_TEXT_FOR_FLASH_PLAYER_NOT_FOUND = "Here should be a swf movieclip. "
-			+ "You probably don't have FlashPlayer installed or have a version lower than $flashPlayer.version.";
+			+ "You probably don't have FlashPlayer installed or have a minPlayerVersion lower than $flashPlayer.version.";
 
-	private String innerTextDivForFlashPlayerNotFound = DEFAULT_INNER_DIV_TEXT_FOR_FLASH_PLAYER_NOT_FOUND;
+	public static final PlayerVersion DEFAULT_MIN_PLAYER_VERSION = new PlayerVersion(7, 0, 14); // = "7.0.14";
 
-	String src;
+	public static final SWFSettings DEFAULT_SWF_SETTINGS = new SWFSettings();
+  	
+	
+	private String innerDivTextForFlashPlayerNotFound = DEFAULT_INNER_DIV_TEXT_FOR_FLASH_PLAYER_NOT_FOUND;
+	
+	private PlayerVersion minPlayerVersion = DEFAULT_MIN_PLAYER_VERSION;	
 
-	String width;
+	//String bgcolor = DEFAULT_BGCOLOR;
 
-	String height;
 
-	PlayerVersion version = new PlayerVersion(7, 0, 14); // = "7.0.14";
+	//String quality;
 
-	String bgcolor = DEFAULT_BGCOLOR;
+	//String xiRedirectUrl, redirectUrl, detectKey;
 
-	Map<java.lang.String, java.lang.String> flashVars = new HashMap<java.lang.String, java.lang.String>();
-
-	Map<java.lang.String, java.lang.String> params = new HashMap<java.lang.String, java.lang.String>();
-
-	Map<java.lang.String, java.lang.String> attributes = new HashMap<java.lang.String, java.lang.String>();
-
-	String quality;
-
-	String xiRedirectUrl, redirectUrl, detectKey;
-
+	public static SWFSettings getDefaultSWFSettings() {
+	  return DEFAULT_SWF_SETTINGS;
+	}
+	
 	public SWFSettings() {
 	}
 
-	public SWFSettings(String src, int width, int height) {
-		this(src, width, height, DEFAULT_BGCOLOR);
-	}
-
-	public SWFSettings(String src, Integer width, Integer height) {
-		this(src, width.intValue(), height.intValue(), DEFAULT_BGCOLOR);
-	}
-
-	public SWFSettings(String src, String width, String height) {
-		this(src, width, height, DEFAULT_BGCOLOR);
-	}
-
-	public SWFSettings(String src, int width, int height, String bgcolor) {
-		super();
-		setSrc(src);
-		setPixelSize(width, height);
-		setBgcolor(bgcolor);
-	}
-
-	public SWFSettings(String src, Integer width, Integer height, String bgcolor) {
-		this(src, width.intValue(), height.intValue(), bgcolor);
-	}
-
-	public SWFSettings(String src, String width, String height, String bgcolor) {
-		super();
-		setSrc(src);
-		setWidth(width);
-		setHeight(height);
-		setBgcolor(bgcolor);
-	}
-
-	public String getBgcolor() {
-		return bgcolor;
-	}
-
-	public void setBgcolor(String bgcolor) {
-		if (bgcolor == null)
-			throw new NullPointerException();
-		this.bgcolor = bgcolor;
-	}
-
-	public String getDetectKey() {
-		return detectKey;
-	}
-
-	public void setDetectKey(String detectKey) {
-		this.detectKey = detectKey;
-	}
-
-	public String getHeight() {
-		return height;
-	}
-
-	public String getQuality() {
-		return quality;
-	}
-
-	public void setQuality(String quality) {
-		this.quality = quality;
-	}
-
-	public String getRedirectUrl() {
-		return redirectUrl;
-	}
-
-	public void setRedirectUrl(String redirectUrl) {
-		this.redirectUrl = redirectUrl;
-	}
-
-	public String getSrc() {
-		return src;
-	}
-
-	public void setSrc(String src) {
-		this.src = src;
-	}
-
-	/**
-	 * 
-	 * @return flashVars
-	 */
-	public Map<java.lang.String, java.lang.String> getParams() {
-		return params;
-	}
-
-	public void addParam(String paramName, String paramValue) {
-		SWFObjectUtil.validSwfObjectParameter(paramName);
-		getParams().put(paramName, paramValue);
-	}
-
-	public String getParam(String paramName) {
-		return getParams().get(paramName);
-	}
-
-	/**
-	 * @return flashVars
-	 */
-	public Map<java.lang.String, java.lang.String> getFlashVars() {
-		return flashVars;
-	}
-
-	public void addFlashVar(String varName, String varValue) {
-		getFlashVars().put(varName, varValue);
-	}
-	
-	public String getFlashVar(String varName) {
-		return getFlashVars().get(varName);
-	}
-
-	public Map<java.lang.String, java.lang.String> getAttributes() {
-		return attributes;
-	}
-
-	public void addAttribute(String attributeName, String attributeValue) {
-		SWFObjectUtil.validSwfObjectAttribute(attributeName);
-		getAttributes().put(attributeName, attributeValue);
-	}
-	
-	public String getAttribute(String attributeName) {
-		return attributes.get(attributeName);
-	}
-
-	public PlayerVersion getVersion() {
-		return version;
+	public PlayerVersion getMinPlayerVersion() {
+		return minPlayerVersion;
 	}
 
 	public void setVersion(PlayerVersion version) {
-		this.version = version;
+		this.minPlayerVersion = version;
 	}
+	
+	/**
+   * @return the innerDivTextForFlashPlayerNotFound
+   */
+  public String getInnerDivTextForFlashPlayerNotFound() {
+    return innerDivTextForFlashPlayerNotFound;
+  }
 
-	public String getWidth() {
-		return width;
-	}
+  /**
+   * @param innerDivTextForFlashPlayerNotFound
+   *            the innerDivTextForFlashPlayerNotFound to set
+   */
+  public void setInnerDivTextForFlashPlayerNotFound(
+      String text) {
+    this.innerDivTextForFlashPlayerNotFound = text;
+  }
 
-	public String getXiRedirectUrl() {
-		return xiRedirectUrl;
-	}
+  // public String getRedirectUrl() {
+  // return redirectUrl;
+  // }
+  //
+  // public void setRedirectUrl(String redirectUrl) {
+  // this.redirectUrl = redirectUrl;
+  // }
+  // public String getWidth() {
+  // return width;
+  // }
 
-	public void setXiRedirectUrl(String xiRedirectUrl) {
-		this.xiRedirectUrl = xiRedirectUrl;
-	}
+  // public String getXiRedirectUrl() {
+  // return xiRedirectUrl;
+  // }
 
+  // public void setXiRedirectUrl(String xiRedirectUrl) {
+  // this.xiRedirectUrl = xiRedirectUrl;
+  //	}
+  // public String getQuality() {
+  // return quality;
+  // }
+  //
+  // public void setQuality(String quality) {
+  // this.quality = quality;
+  //  }
+  // public String getBgcolor() {
+  // return bgcolor;
+  // }
+  //
+  // public void setBgcolor(String bgcolor) {
+  // if (bgcolor == null)
+  // throw new NullPointerException();
+  // this.bgcolor = bgcolor;
+  // }
+  //
+  // public String getDetectKey() {
+  // return detectKey;
+  // }
+  //
+  // public void setDetectKey(String detectKey) {
+  // this.detectKey = detectKey;
+  //	  }
 	/**
 	 * Sets the swf object's height.
 	 * 
@@ -209,11 +131,11 @@ public class SWFSettings {
 	 * @throws RuntimeException
 	 *             if height < 0
 	 */
-	public void setHeight(String height) {
-		if (!(parseLength(height.trim().toLowerCase()) >= 0))
-			throw new RuntimeException("CSS heights should not be negative");
-		this.height = height;
-	}
+//	public void setHeight(String height) {
+//		if (!(parseLength(height.trim().toLowerCase()) >= 0))
+//			throw new RuntimeException("CSS heights should not be negative");
+//		this.height = height;
+//	}
 
 	/**
 	 * Sets the swf object's size, in pixels.
@@ -223,14 +145,14 @@ public class SWFSettings {
 	 * @param height
 	 *            the swf object's new height, in pixels
 	 */
-	public void setPixelSize(int width, int height) {
-		if (width >= 0) {
-			setWidth(width + "px");
-		}
-		if (height >= 0) {
-			setHeight(height + "px");
-		}
-	}
+//	public void setPixelSize(int width, int height) {
+//		if (width >= 0) {
+//			setWidth(width + "px");
+//		}
+//		if (height >= 0) {
+//			setHeight(height + "px");
+//		}
+//	}
 
 	/**
 	 * Sets the swf object's size.
@@ -242,10 +164,10 @@ public class SWFSettings {
 	 *            the swf object's new height, in CSS units (e.g. "10px", "2em",
 	 *            "100%")
 	 */
-	public void setSize(String width, String height) {
-		setWidth(width);
-		setHeight(height);
-	}
+//	public void setSize(String width, String height) {
+//		setWidth(width);
+//		setHeight(height);
+//	}
 
 	/**
 	 * Sets the swf object's width.
@@ -256,30 +178,14 @@ public class SWFSettings {
 	 * @throws RuntimeException
 	 *             if width < 0
 	 */
-	public void setWidth(String width) {
-		if (!(parseLength(width.trim().toLowerCase()) >= 0))
-			throw new RuntimeException("CSS widths should not be negative");
-		this.width = width;
-	}
+//	public void setWidth(String width) {
+//		if (!(parseLength(width.trim().toLowerCase()) >= 0))
+//			throw new RuntimeException("CSS widths should not be negative");
+//		this.width = width;
+//	}
 
-	/**
-	 * @return the innerTextDivForFlashPlayerNotFound
-	 */
-	public String getInnerTextDivForFlashPlayerNotFound() {
-		return innerTextDivForFlashPlayerNotFound;
-	}
+	
 
-	/**
-	 * @param innerTextDivForFlashPlayerNotFound
-	 *            the innerTextDivForFlashPlayerNotFound to set
-	 */
-	public void setInnerTextDivForFlashPlayerNotFound(
-			String innerTextDivForFlashPlayerNotFound) {
-		this.innerTextDivForFlashPlayerNotFound = innerTextDivForFlashPlayerNotFound;
-	}
 
-	private native double parseLength(String s) /*-{      
-	         return parseFloat(s);      
-	     }-*/;
 
 }

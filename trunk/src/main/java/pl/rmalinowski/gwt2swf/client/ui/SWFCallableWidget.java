@@ -23,14 +23,16 @@ import com.google.gwt.user.client.Element;
 
 public class SWFCallableWidget extends SWFWidget{
 
-	public SWFCallableWidget() {
-		super();
-	}
 
-	public SWFCallableWidget(SWFSettings desc) {
-		super(desc);
-	}
-	
+
+/**
+   * @param src
+   */
+  public SWFCallableWidget(String src) {
+    super(src);
+    // TODO Auto-generated constructor stub
+  }
+
 //	To działa prawidłowo 
 	private native JavaScriptObject _call(Element flashObject,String methodName)/*-{
 

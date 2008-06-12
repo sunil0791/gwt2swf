@@ -66,8 +66,8 @@ public class GWTFlash2 implements EntryPoint {
 	public void onModuleLoad() {
 		GWT.log("Starnt", null);
 		String swfFile = "pasek.swf";
-		SWFSettings desc = new SWFSettings(swfFile,new Integer(800),new Integer(600));
-		final SWFWidget swfWidget = new SWFWidget(desc);	
+	//	SWFSettings desc = new SWFSettings(swfFile,new Integer(800),new Integer(600));
+		final SWFWidget swfWidget = new SWFWidget(swfFile,new Integer(800),new Integer(600));
 		RootPanel.get().add(swfWidget); //Fist you must add swfWidget to RootPanel
 		
             swfWidget.show();
@@ -80,9 +80,9 @@ public class GWTFlash2 implements EntryPoint {
 		String swfFile = "gwt2swf.swf";
 		//String swfFile = "gwt2swf.swf";
 //		String swfFile = "getFlashInfo.swf";
-		SWFSettings desc = new SWFSettings(swfFile,new Integer(800),new Integer(600));
+		//SWFSettings desc = new SWFSettings(swfFile,new Integer(800),new Integer(600));
 		//desc.getVersion().setMajor(7);
-		final SWFCallableWidget swfWidget = new SWFCallableWidget(desc);	
+		final SWFCallableWidget swfWidget = new SWFCallableWidget(swfFile);	
 		RootPanel.get().add(swfWidget); //Fist you must add swfWidget to RootPanel
 		
             swfWidget.show();
@@ -106,10 +106,10 @@ public class GWTFlash2 implements EntryPoint {
 		GWT.log("Starnt", null);
 	
 		
-		SWFSettings desc = new SWFSettings("gwt2swf.swf",new Integer(200),new Integer(200));
+		//SWFSettings desc = new SWFSettings("gwt2swf.swf",new Integer(200),new Integer(200));
 		//desc.getVersion().setMajor(7);
-		final SWFWidget swfWidget = new SWFWidget(desc);	
-		final SWFWidget swfWidget2 = new SWFWidget(desc);	
+		final SWFWidget swfWidget = new SWFWidget("gwt2swf.swf",new Integer(200),new Integer(200));
+		final SWFWidget swfWidget2 = new SWFWidget("gwt2swf.swf",new Integer(200),new Integer(200));
 		final SWFPopupPanel panel = new SWFPopupPanel(swfWidget);
 		//swfWidget.initSWF();
 		RootPanel.get().add(showBtn);
