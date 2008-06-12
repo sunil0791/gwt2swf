@@ -31,63 +31,18 @@
 	<!-- to create a completely dynamic ui         -->
 	<!--                                           -->
 	<body>
-	
-	<script language="JavaScript">
-		function getLocation() {
-			return window.location.toString();
-		}
-		
-		function showObj(o) {
-			alert("swf called me!");
-			//js_vardump(o);	
-		}
-		
-		
-		function js_vardump(obj, parent)
-{
-    for (var i in obj)
-    {
-        if (parent)
-        {
-            var msg = parent + "." + i + "\n" + obj[i];
-        } else {
-            var msg = i + "\n" + obj[i];
-        }
-        if (!confirm(msg)) { return; }
-        if (typeof obj[i] == "object")
-        {
-            if (parent)
-            {
-                js_vardump(obj[i], parent + "." + i);
-            } else {
-                js_vardump(obj[i], i);
-            }
-        }
-    }
-}
-	</script>
 
-		<!--                                            -->
-		<!-- This script is required bootstrap stuff.   -->
-		<!-- You can put it in the HEAD, but startup    -->
-		<!-- is slightly faster if you include it here. -->
-		<!--       swfobject_source.js                                    
-		<!--  <script language="javascript" src="swfobject_source-2.0.js"></script>-->
-		<!--
-		<script language="javascript" src="gwt.js"></script>
-		
-		<script language="javascript" src="gwtflash.js"></script>-->
+
 		<script language="javascript" src="pl.rmalinowski.gwt2swf.GWTFlash.nocache.js"></script>
 		
 		<!-- OPTIONAL: include this if you want history support -->
 		<iframe id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>
 
-		<h1>GWTFlash 2.0</h1>
+    <h1>GWT2SWF HelloWorld resize example</h1>
 
-		<p>
-			This is an example SWF 2 GWT v 2.0.004
-		</p>
-		<div id="swfDiv" >to powinno zniknac</div>
+    <p>
+      This is an example of a dynamic SWF resize.
+    </p>   
 
 		<table align=center>
 			<tr>
