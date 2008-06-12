@@ -91,6 +91,18 @@ Setting flash parameter 'wmode' to value 'transparent' will look like this:
   RootPanel.get().add(swfWidget);
 }}}
 
+
+== Forbidden attributes and parameters ==
+
+ Forbidden attributes :
+   * id - GWT2SWF generates this automatically
+   * classid - SWFObject publishes this automatically for Internet Explorer on Windows
+   * type - SWFObject publishes this automatically for all browsers except Internet Explorer on Windows
+   * codebase - deprecated
+
+ Forbidden parameters :
+   * movie - use the object element's data attribute instead, SWFObject publishes this automatically for Internet Explorer on Windows
+
 ==  SWFObjectUtil  ==
 
 Using SWFObjectUtil you can obtain the current version of flash player . 
@@ -171,4 +183,3 @@ You can set the size of swfWidget using percentages, such as "100%"
   SWFWidget swfWidget = new SWFWidget("my.swf");
   swfWidget.setWidth("100%");
 }}}
-
