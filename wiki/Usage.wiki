@@ -102,7 +102,7 @@ Using SWFObjectUtil you can obtain the current version of flash player .
 You can also check if your required version of flash player is installed.
 
 {{{
-  PlayerVersion minPlayerVersion = new PlayerVersion(9, 0, 14);
+  PlayerVersion minPlayerVersion = new PlayerVersion(999, 0, 14);
   boolean isVersionIsValid = SWFObjectUtil.isVersionIsValid(minPlayerVersion);
 
   if (!versionIsValid) {
@@ -171,6 +171,4 @@ You can set the size of swfWidget using percentages, such as "100%"
   SWFWidget swfWidget = new SWFWidget("my.swf");
   swfWidget.setWidth("100%");
 }}}
-
-
 
