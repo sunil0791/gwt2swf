@@ -1,0 +1,14 @@
+<module>
+<!-- 
+	GWTFlash.gwt.xml is test use
+	 -->
+	<!-- Inherit the core Web Toolkit stuff.                  -->
+	<inherits name='com.google.gwt.user.User'/>
+	<inherits name="com.google.gwt.json.JSON"/>
+
+	<!-- Specify the app entry point class.                   -->
+	<entry-point class='pl.rmalinowski.gwt2swf.client.GWTFlash'/>
+  
+	<!-- <script src="swfobject_source-1.5.js"></script>-->
+  <script src="swfobject_source-2.0.js"></script>
+</module>

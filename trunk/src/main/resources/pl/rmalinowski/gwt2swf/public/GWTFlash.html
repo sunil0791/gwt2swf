@@ -1,0 +1,98 @@
+<html>
+	<head>
+	
+		<!--                                           -->
+		<!-- Any title is fine                         -->
+		<!--                                           -->
+		<title>Wrapper HTML for GWTFlash</title>
+
+		<!--                                           -->
+		<!-- Use normal html, such as style            -->
+		<!--                                           -->
+		<style>
+			body,td,a,div,.p{font-family:arial,sans-serif}
+			div,td{color:#000000}
+			a:link,.w,.w a:link{color:#0000cc}
+			a:visited{color:#551a8b}
+			a:active{color:#ff0000}
+		</style>
+
+		<!--                                           -->
+		<!-- The module reference below is the link    -->
+		<!-- between html and your Web Toolkit module  -->		
+		<!--                                           -->
+		<meta name='gwt:module' content='pl.rmalinowski.gwt2swf.GWTFlash'>
+		
+	</head>
+
+	<!--                                           -->
+	<!-- The body can have arbitrary html, or      -->
+	<!-- you can leave the body empty if you want  -->
+	<!-- to create a completely dynamic ui         -->
+	<!--                                           -->
+	<body>
+	
+	<script language="JavaScript">
+		function getLocation() {
+			return window.location.toString();
+		}
+		
+		function showObj(o) {
+			alert("swf called me!");
+			//js_vardump(o);	
+		}
+		
+		
+		function js_vardump(obj, parent)
+{
+    for (var i in obj)
+    {
+        if (parent)
+        {
+            var msg = parent + "." + i + "\n" + obj[i];
+        } else {
+            var msg = i + "\n" + obj[i];
+        }
+        if (!confirm(msg)) { return; }
+        if (typeof obj[i] == "object")
+        {
+            if (parent)
+            {
+                js_vardump(obj[i], parent + "." + i);
+            } else {
+                js_vardump(obj[i], i);
+            }
+        }
+    }
+}
+	</script>
+
+		<!--                                            -->
+		<!-- This script is required bootstrap stuff.   -->
+		<!-- You can put it in the HEAD, but startup    -->
+		<!-- is slightly faster if you include it here. -->
+		<!--       swfobject_source.js                                    
+		<!--  <script language="javascript" src="swfobject_source-2.0.js"></script>-->
+		<!--
+		<script language="javascript" src="gwt.js"></script>
+		
+		<script language="javascript" src="gwtflash.js"></script>-->
+		<script language="javascript" src="pl.rmalinowski.gwt2swf.GWTFlash.nocache.js"></script>
+		
+		<!-- OPTIONAL: include this if you want history support -->
+		<iframe id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>
+
+		<h1>GWTFlash 2.0</h1>
+
+		<p>
+			This is an example SWF 2 GWT v 2.0.003
+		</p>
+		<div id="swfDiv" >to powinno zniknac</div>
+
+		<table align=center>
+			<tr>
+				<td id="slot1"></td><td id="slot2"></td>
+			</tr>
+		</table>
+	</body>
+</html>
