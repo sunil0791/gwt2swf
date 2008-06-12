@@ -1,5 +1,13 @@
 #labels Featured
-= Usage =
+
+== Adding gwt2swf to your project ==
+
+To add gwt2swf to your project you need to update your projectName.gwt.xml file and add:
+
+<inherits name='pl.rmalinowski.gwt2swf.GWT2SWF' />
+
+into xml node 'module'. 
+And of course gwt2swf.jar should be in your project classpath.
 
 == Basic usage ==
 
@@ -18,9 +26,9 @@ Other examples:
 }}}
 
 
-== Setting SWFWidget ==
+== Changing SWFWidget size and visibility ==
 
-You can dynamicly change SWFWidget size and visibility
+You can dynamically change the size and visibility of SWFWidget.
 
 {{{
   SWFWidget swfWidget = new SWFWidget("my.swf");
