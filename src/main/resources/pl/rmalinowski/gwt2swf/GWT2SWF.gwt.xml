@@ -2,17 +2,8 @@
 
 	<!-- 
 	GWT2SWF.gwt.xml is for distribution use
-	 -->
-	                  
+	 -->            
 	<inherits name='com.google.gwt.user.User'/>
-	<inherits name="com.google.gwt.json.JSON"/>
+  <script src="swfobject-2.0.js"></script>
   
-  	<script src="swfobject_source.js"><![CDATA[	
-	  if ($wnd.deconcept) {	  	
-	    return true;
-	    }
-	  else {
-	    return false;
-	    }
-	]]></script>
 </module>
