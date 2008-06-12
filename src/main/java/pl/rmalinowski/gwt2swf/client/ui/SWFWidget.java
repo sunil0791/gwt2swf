@@ -17,15 +17,15 @@
 
 package pl.rmalinowski.gwt2swf.client.ui;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import pl.rmalinowski.gwt2swf.client.utils.PlayerVersion;
 import pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -35,204 +35,293 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class SWFWidget extends Widget {
 
-	private final SWFSettings swfSettings;
+  private final SWFSettings swfSettings;
 
-	private static int count = 0;
+  private static int count = 0;
 
-	private final static String divPrefix = "swfDivID_";
+  private final static String divPrefix = "swfDivID_";
 
-	private final String swfDivId;
+  private final String swfDivId;
 
-	private final static String idPrefix = "swfID_";
+  private final static String idPrefix = "swfID_";
 
-	private final String swfId;
+  private final String swfId;
 
-	private boolean isSWFInjected = false;
+  private final String src;
 
-	protected native void injectSWF(String swf, String id, String w, String h,
-			String ver, Map<String, String> flashvars,
-			Map<String, String> params, Map<String, String> attributes) /*-{
-	       
-	        var _vars = @pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil::convertHashMapToJSArray(Ljava/util/Map;)(flashvars);
-	        var _params = @pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil::convertHashMapToJSArray(Ljava/util/Map;)(params);
-	        var _attributes = @pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil::convertHashMapToJSArray(Ljava/util/Map;)(attributes);
-	         
-	        $wnd.swfobject.embedSWF(swf, id, w, h, ver, null , _vars, _params, _attributes);
-	         
-	     }-*/;
+  // private String width;
 
-	public SWFWidget() {
-		this(new SWFSettings());
-	}
+  // private String height;
 
-	public SWFWidget(String src, Integer width, Integer height) {
-		this(new SWFSettings(src, width, height));
-	}
+  private final Map<java.lang.String, java.lang.String> flashVars = new HashMap<java.lang.String, java.lang.String>();
 
-	public SWFWidget(String src, Integer width, Integer height, String bgcolor) {
-		this(new SWFSettings(src, width, height, bgcolor));
-	}
+  private final Map<java.lang.String, java.lang.String> params = new HashMap<java.lang.String, java.lang.String>();
 
-	public SWFWidget(String src, int width, int height) {
-		this(new SWFSettings(src, width, height));
-	}
+  private final Map<java.lang.String, java.lang.String> attributes = new HashMap<java.lang.String, java.lang.String>();
 
-	public SWFWidget(String src, String width, String height) {
-		this(new SWFSettings(src, width, height));
-	}
+  private boolean isSWFInjected = false;
 
-	public SWFWidget(String src, int width, int height, String bgcolor) {
-		this(new SWFSettings(src, width, height, bgcolor));
-	}
+  private PlayerVersion minPlayerVersion = null;
 
-	public SWFWidget(String src, String width, String height, String bgcolor) {
-		this(new SWFSettings(src, width, height, bgcolor));
-	}
+  protected native void injectSWF(String swf, String id, String w, String h,
+      String ver, Map<String, String> flashvars, Map<String, String> params,
+      Map<String, String> attributes) /*-{
+           
+            var _vars = @pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil::convertHashMapToJSArray(Ljava/util/Map;)(flashvars);
+            var _params = @pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil::convertHashMapToJSArray(Ljava/util/Map;)(params);
+            var _attributes = @pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil::convertHashMapToJSArray(Ljava/util/Map;)(attributes);
+             
+            $wnd.swfobject.embedSWF(swf, id, w, h, ver, null , _vars, _params, _attributes);
+             
+         }-*/;
 
-	public SWFWidget(SWFSettings settings) {
-		swfSettings = settings;
-		swfId = idPrefix + count;
-		swfDivId = divPrefix + count;
-		++count;
-		Element element = DOM.createElement("div");
-		DOM.setElementProperty(element, "id", swfDivId);
+  public SWFWidget(String src, int width, int height) {
+    this(src, width, height, SWFSettings.getDefaultSWFSettings());
+  }
 
-		// add new div which will be replaced by SWFObject
-		
-		setElement(element);
+  public SWFWidget(String src, String width, String height) {
+    this(src, width, height, SWFSettings.getDefaultSWFSettings());
+  }
 
-	}
+  public SWFWidget(String src, int width, int height, SWFSettings settings) {
+    this(src, settings);
+    setPixelSize(width, height);
+  }
 
-	private void initEmptyInnerDiv() {
-		String notifyText = swfSettings.getInnerTextDivForFlashPlayerNotFound()
-				.replaceAll("\\$flashPlayer.version",
-						getSwfSettings().getVersion().toString());
-		getElement().setInnerHTML(
-				"<div id=\"" + swfId + "\">" + notifyText + "</div>");
-	}
+  public SWFWidget(String src, String width, String height, SWFSettings settings) {
+    this(src, settings);
+    setSize(width, height);
+  }
 
-	protected void onLoad() {
-		if (!isSWFInjected) {
-			initEmptyInnerDiv();
-			onBeforeSWFInjection();
-			injectSWF(swfSettings.getSrc(), getSwfId(), swfSettings.getWidth(),
-					swfSettings.getHeight(), swfSettings.getVersion()
-							.toString(), swfSettings.getFlashVars(), swfSettings
-							.getParams(), swfSettings.getAttributes());
-			isSWFInjected = true;
-			onAfterSWFInjection();
-		}
-		super.onLoad();
-	}
+  public SWFWidget(String src) {
+    this(src, SWFSettings.getDefaultSWFSettings());
+  }
 
-	/**
-	 * Override this method to catch information about swf injected. The default
-	 * implementation does nothing and need not be called by subclasses.
-	 */
-	protected void onAfterSWFInjection() {
+  public SWFWidget(String src, SWFSettings settings) {
+    this.src = src;
+    swfSettings = settings;
+    swfId = idPrefix + count;
+    swfDivId = divPrefix + count;
+    ++count;
+    Element element = DOM.createElement("div");
+    DOM.setElementProperty(element, "id", swfDivId);
 
-	}
+    // add new div which will be replaced by SWFObject
+    setElement(element);
 
-	/**
-	 * Override this method to catch information about swf injection. The
-	 * default implementation does nothing and need not be called by subclasses.
-	 */
-	protected void onBeforeSWFInjection() {
+  }
 
-	}
+  private void initEmptyInnerDiv() {
+    String notifyText = swfSettings.getInnerDivTextForFlashPlayerNotFound()
+        .replaceAll("\\$flashPlayer.version",
+            getSwfSettings().getMinPlayerVersion().toString());
+    getElement().setInnerHTML(
+        "<div id=\"" + swfId + "\">" + notifyText + "</div>");
+  }
 
-	protected void onUnload() {
-		//GWT.log("onUnload", null);
-		getElement().removeChild(DOM.getFirstChild(getElement()));
-		isSWFInjected = false;
-		super.onUnload();
-	}
+  protected void onLoad() {
+    if (!isSWFInjected) {
+      initEmptyInnerDiv();
+      onBeforeSWFInjection();
+      injectSWF(getSrc(), getSwfId(), getWidth(), getHeight(), swfSettings
+          .getMinPlayerVersion().toString(), getFlashVars(), getParams(),
+          getAttributes());
+      isSWFInjected = true;
+      onAfterSWFInjection();
+    }
+    super.onLoad();
+  }
 
-	/**
-	 * 
-	 * @Deprecated use setVisible(true)
-	 */
-	public void show() {
-		setVisible(true);
-	}
+  /**
+   * Override this method to catch information about swf injected. The default
+   * implementation does nothing and need not be called by subclasses.
+   */
+  protected void onAfterSWFInjection() {
 
-	/**
-	 * 
-	 * @Deprecated use setVisible(false)
-	 */
-	public void hide() {
-		setVisible(false);
+  }
 
-	}
+  /**
+   * Override this method to catch information about swf injection. The default
+   * implementation does nothing and need not be called by subclasses.
+   */
+  protected void onBeforeSWFInjection() {
 
-	/**
-	 * auto generated swf div ID
-	 * 
-	 * @return
-	 */
-	protected String getSwfDivId() {
-		return swfDivId;
-	}
+  }
 
-	/**
-	 * auto genereted swf ID
-	 * 
-	 * @return
-	 */
-	protected String getSwfId() {
-		return swfId;
-	}
+  protected void onUnload() {
+    // GWT.log("onUnload", null);
+    getElement().removeChild(DOM.getFirstChild(getElement()));
+    isSWFInjected = false;
+    super.onUnload();
+  }
 
-	/**
-	 * @return the swfSettings
-	 */
-	public SWFSettings getSwfSettings() {
-		return swfSettings;
-	}
+  /**
+   * 
+   * @Deprecated use setVisible(true)
+   */
+  public void show() {
+    setVisible(true);
+  }
 
-	/**
-	 * Sets the swf object's height.
-	 * 
-	 * @param height
-	 *            the swf object's new height, in CSS units (e.g. "10px", "1em" ,
-	 *            "100%")
-	 */
-	public void setHeight(String height) {
-		getSwfSettings().setHeight(height);
-		if (isSWFInjected) {
-			Element elem = DOM.getFirstChild(getElement());
-			DOM.setElementAttribute(elem, "height", height);
-		}
+  /**
+   * 
+   * @Deprecated use setVisible(false)
+   */
+  public void hide() {
+    setVisible(false);
 
-		super.setHeight(height);
-	}
+  }
 
-	/**
-	 * Sets the swf object's size, in pixels.
-	 * 
-	 * @param width
-	 *            the swf object's new width, in pixels
-	 * @param height
-	 *            the swf object's new height, in pixels
-	 */
-	public void setPixelSize(int width, int height) {
-		super.setPixelSize(width, height);
-	}
+  /**
+   * auto generated swf div ID
+   * 
+   * @return
+   */
+  protected String getSwfDivId() {
+    return swfDivId;
+  }
 
-	/**
-	 * Sets the swf object's width.
-	 * 
-	 * @param width
-	 *            the swf object's new width, in CSS units (e.g. "10px", "1em",
-	 *            "100%")
-	 */
-	public void setWidth(String width) {
-		getSwfSettings().setWidth(width);
-		if (isSWFInjected) {
-			Element elem = DOM.getFirstChild(getElement());
-			DOM.setElementAttribute(elem, "width", width);
-		}
-		super.setWidth(width);
-	}
+  /**
+   * auto genereted swf ID
+   * 
+   * @return
+   */
+  protected String getSwfId() {
+    return swfId;
+  }
+
+  /**
+   * @return the swfSettings
+   */
+  public SWFSettings getSwfSettings() {
+    return swfSettings;
+  }
+
+  /**
+   * Sets the swf object's height.
+   * 
+   * @param height
+   *          the swf object's new height, in CSS units (e.g. "10px", "1em" ,
+   *          "100%")
+   */
+  public void setHeight(String height) {
+    height = height.trim().toLowerCase();
+    super.setHeight(height); // Width validation
+    GWT.log(getHeight() + " =? " + height, null);
+    if (getHeight().equals(height)) {
+      if (isSWFInjected) {
+        Element elem = DOM.getFirstChild(getElement());
+        DOM.setElementAttribute(elem, "height", height);
+      }
+    }
+
+  }
+
+  /**
+   * Sets the swf object's size, in pixels.
+   * 
+   * @param width
+   *          the swf object's new width, in pixels
+   * @param height
+   *          the swf object's new height, in pixels
+   */
+  public void setPixelSize(int width, int height) {
+    super.setPixelSize(width, height);
+  }
+
+  /**
+   * Sets the swf object's width.
+   * 
+   * @param width
+   *          the swf object's new width, in CSS units (e.g. "10px", "1em",
+   *          "100%")
+   */
+  public void setWidth(String width) {
+    width = width.trim().toLowerCase();
+    super.setWidth(width); // Width validation
+
+    if (getWidth().equals(width)) {
+      // throw new RuntimeException("CSS widths should not be negative");
+
+      if (isSWFInjected) {
+        Element elem = DOM.getFirstChild(getElement());
+        DOM.setElementAttribute(elem, "width", width);
+      }
+    }
+  }
+
+  public Map<java.lang.String, java.lang.String> getParams() {
+    return params;
+  }
+
+  public void addParam(String paramName, String paramValue) {
+    SWFObjectUtil.validSwfObjectParameter(paramName);
+    getParams().put(paramName, paramValue);
+  }
+
+  public String getParam(String paramName) {
+    return getParams().get(paramName);
+  }
+
+  public Map<java.lang.String, java.lang.String> getFlashVars() {
+    return flashVars;
+  }
+
+  public void addFlashVar(String varName, String varValue) {
+    getFlashVars().put(varName, varValue);
+  }
+
+  public String getFlashVar(String varName) {
+    return getFlashVars().get(varName);
+  }
+
+  public Map<java.lang.String, java.lang.String> getAttributes() {
+    return attributes;
+  }
+
+  public void addAttribute(String attributeName, String attributeValue) {
+    SWFObjectUtil.validSwfObjectAttribute(attributeName);
+    getAttributes().put(attributeName, attributeValue);
+  }
+
+  public String getAttribute(String attributeName) {
+    return attributes.get(attributeName);
+  }
+
+  public String getSrc() {
+    return src;
+  }
+
+  public String getWidth() {
+    return DOM.getStyleAttribute(getElement(), "width");
+  }
+
+  public String getHeight() {
+    return DOM.getStyleAttribute(getElement(), "height");
+  }
+
+  /**
+   * return min player version
+   * 
+   * @return
+   */
+  public PlayerVersion getPlayerVersion() {
+    return getMinPlayerVersion();
+  }
+
+  /**
+   * return min player version if setted, else get default min player version
+   * from SWFSettings
+   * 
+   * @return
+   */
+  public PlayerVersion getMinPlayerVersion() {
+    return minPlayerVersion == null ? getSwfSettings().getMinPlayerVersion()
+        : minPlayerVersion;
+  }
+
+  public void setPlayerVersion(PlayerVersion playerVersion) {
+    this.minPlayerVersion = playerVersion;
+  }
 
 }
