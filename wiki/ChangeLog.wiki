@@ -1,6 +1,6 @@
 === version 0.6.0 ===
 
- * GWT 1.5 compatibility
+ * compatibility with GWT 1.5 has been ensured (but for backward compatibility I did not use java generics)
  * Embedded SWFObject has been upgraded to version 2.0.
  * Class SWFParams has been changed to SWFSettings.
  * The ability to set swf attributes and parameters has been added.
