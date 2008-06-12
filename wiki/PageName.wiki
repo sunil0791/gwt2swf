@@ -2,7 +2,7 @@
 
 = Quick start =
 
-For newbie here is quick tutorial how to create new project with gwt2swf library.
+For newbies here is a quick tutorial on how to create a new project GWT and use the library gwt2swf.
 
 = Details =
 
