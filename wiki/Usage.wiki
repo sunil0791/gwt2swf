@@ -1,0 +1,41 @@
+#labels Featured
+= Usage =
+
+== Basic usage ==
+
+{{{
+  SWFWidget swfWidget = new SWFWidget(swfFileName, width, height);
+
+  RootPanel.get().add(swfWidget);
+}}}
+
+Other examples:
+
+{{{
+  SWFWidget swfWidget = new SWFWidget("my.swf");
+  SWFWidget swfWidget = new SWFWidget("my.swf", 50, 100);
+  SWFWidget swfWidget = new SWFWidget("my.swf", "50px", "100px");
+}}}
+
+
+== Setting SWFWidget ==
+
+You can dynamicly change SWFWidget size and visibility
+
+{{{
+  SWFWidget swfWidget = new SWFWidget("my.swf");
+  swfWidget.setPixelSize(20, 10);
+  RootPanel.get().add(swfWidget);
+  
+  RootPanel.get().add(new Button("resize", new ClickListener() {
+    public void onClick(Widget sender) {
+      swfWidget.setSize("400px", "300px");
+    }
+  }));
+
+  RootPanel.get().add(new Button("hide", new ClickListener() {
+    public void onClick(Widget sender) {
+      swfWidget.setVisible(false);
+    }
+  }));
+}}}
