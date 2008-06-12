@@ -31,7 +31,7 @@ public class SWFSettings {
 	// public static final String DEFAULT_BGCOLOR = "ffffff";
 
 	public static final String DEFAULT_INNER_DIV_TEXT_FOR_FLASH_PLAYER_NOT_FOUND = "Here should be a swf movieclip. "
-			+ "You probably don't have FlashPlayer installed or have a minPlayerVersion lower than $flashPlayer.version.";
+			+ "You probably don't have FlashPlayer installed or have a PlayerVersion lower than ${flashPlayer.version}.";
 
 	public static final PlayerVersion DEFAULT_MIN_PLAYER_VERSION = new PlayerVersion(7, 0, 14); // = "7.0.14";
 
@@ -60,7 +60,7 @@ public class SWFSettings {
 		return minPlayerVersion;
 	}
 
-	public void setVersion(PlayerVersion version) {
+	public void setMinPlayerVersion(PlayerVersion version) {
 		this.minPlayerVersion = version;
 	}
 	

@@ -113,7 +113,7 @@ public class SWFWidget extends Widget {
 
   private void initEmptyInnerDiv() {
     String notifyText = swfSettings.getInnerDivTextForFlashPlayerNotFound()
-        .replaceAll("\\$flashPlayer.version",
+        .replaceAll("\\${flashPlayer.version}",
             getSwfSettings().getMinPlayerVersion().toString());
     getElement().setInnerHTML(
         "<div id=\"" + swfId + "\">" + notifyText + "</div>");
@@ -157,7 +157,7 @@ public class SWFWidget extends Widget {
 
   /**
    * 
-   * @Deprecated use setVisible(true)
+   * @deprecated use setVisible(true)
    */
   public void show() {
     setVisible(true);
@@ -165,7 +165,7 @@ public class SWFWidget extends Widget {
 
   /**
    * 
-   * @Deprecated use setVisible(false)
+   * @deprecated use setVisible(false)
    */
   public void hide() {
     setVisible(false);
@@ -301,15 +301,6 @@ public class SWFWidget extends Widget {
   }
 
   /**
-   * return min player version
-   * 
-   * @return
-   */
-  public PlayerVersion getPlayerVersion() {
-    return getMinPlayerVersion();
-  }
-
-  /**
    * return min player version if setted, else get default min player version
    * from SWFSettings
    * 
@@ -320,7 +311,7 @@ public class SWFWidget extends Widget {
         : minPlayerVersion;
   }
 
-  public void setPlayerVersion(PlayerVersion playerVersion) {
+  public void setMinPlayerVersion(PlayerVersion playerVersion) {
     this.minPlayerVersion = playerVersion;
   }
 
