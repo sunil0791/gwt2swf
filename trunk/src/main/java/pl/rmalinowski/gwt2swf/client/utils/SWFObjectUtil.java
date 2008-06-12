@@ -32,7 +32,7 @@ public class SWFObjectUtil {
 		return $wnd.swfobject.getFlashPlayerVersion();
 	}-*/;
 
-	public static final List<String> forbiddenAttributes = new ArrayList<String>();
+	public static final List/*<String>*/ forbiddenAttributes = new ArrayList/*<String>*/();
 	static {
 		forbiddenAttributes.add("id"); // GWT2SWF generates this automatically
 		forbiddenAttributes.add("classid"); // SWFObject publishes this
@@ -44,7 +44,7 @@ public class SWFObjectUtil {
 		forbiddenAttributes.add("codebase");// deprecated
 	}
 	
-	public static final List<String> forbiddenParameters = new ArrayList<String>();
+	public static final List/*<String>*/ forbiddenParameters = new ArrayList/*<String>*/();
 	static {
 		forbiddenParameters.add("movie"); // use the object element's data
 											// attribute instead, SWFObject

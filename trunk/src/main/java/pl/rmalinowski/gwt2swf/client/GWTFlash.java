@@ -61,7 +61,7 @@ public class GWTFlash implements EntryPoint {
   public void onModuleLoad() {
 
     PlayerVersion minPlayerVersion = new PlayerVersion(9, 0, 14);
-
+    SWFObjectUtil.getPlayerVersion();
     boolean versionIsValid = SWFObjectUtil.isVersionIsValid(minPlayerVersion);
     if (!versionIsValid) {
       if (!SWFObjectUtil.isFlashPlayerInstalled()) {
