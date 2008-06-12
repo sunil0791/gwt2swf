@@ -53,19 +53,19 @@ public class SWFWidget extends Widget {
 
   // private String height;
 
-  private final Map<java.lang.String, java.lang.String> flashVars = new HashMap<java.lang.String, java.lang.String>();
+  private final Map/*<java.lang.String, java.lang.String>*/ flashVars = new HashMap/*<java.lang.String, java.lang.String>*/();
 
-  private final Map<java.lang.String, java.lang.String> params = new HashMap<java.lang.String, java.lang.String>();
+  private final Map/*<java.lang.String, java.lang.String>*/ params = new HashMap/*<java.lang.String, java.lang.String>*/();
 
-  private final Map<java.lang.String, java.lang.String> attributes = new HashMap<java.lang.String, java.lang.String>();
+  private final Map/*<java.lang.String, java.lang.String>*/ attributes = new HashMap/*<java.lang.String, java.lang.String>*/();
 
   private boolean isSWFInjected = false;
 
   private PlayerVersion minPlayerVersion = null;
 
   protected native void injectSWF(String swf, String id, String w, String h,
-      String ver, Map<String, String> flashvars, Map<String, String> params,
-      Map<String, String> attributes) /*-{
+      String ver, Map/*<String, String>*/flashvars, Map/*<String, String>*/params,
+      Map/*<String, String>*/attributes) /*-{
            
             var _vars = @pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil::convertHashMapToJSArray(Ljava/util/Map;)(flashvars);
             var _params = @pl.rmalinowski.gwt2swf.client.utils.SWFObjectUtil::convertHashMapToJSArray(Ljava/util/Map;)(params);
@@ -113,7 +113,7 @@ public class SWFWidget extends Widget {
 
   private void initEmptyInnerDiv() {
     String notifyText = swfSettings.getInnerDivTextForFlashPlayerNotFound()
-        .replaceAll("\\${flashPlayer.version}",
+        .replaceAll("\\$\\{flashPlayer.version\\}",
             getSwfSettings().getMinPlayerVersion().toString());
     getElement().setInnerHTML(
         "<div id=\"" + swfId + "\">" + notifyText + "</div>");
@@ -250,7 +250,7 @@ public class SWFWidget extends Widget {
     }
   }
 
-  public Map<java.lang.String, java.lang.String> getParams() {
+  public Map/*<java.lang.String, java.lang.String>*/ getParams() {
     return params;
   }
 
@@ -260,10 +260,10 @@ public class SWFWidget extends Widget {
   }
 
   public String getParam(String paramName) {
-    return getParams().get(paramName);
+    return (String) getParams().get(paramName);
   }
 
-  public Map<java.lang.String, java.lang.String> getFlashVars() {
+  public Map/*<java.lang.String, java.lang.String>*/ getFlashVars() {
     return flashVars;
   }
 
@@ -272,10 +272,10 @@ public class SWFWidget extends Widget {
   }
 
   public String getFlashVar(String varName) {
-    return getFlashVars().get(varName);
+    return (String) getFlashVars().get(varName);
   }
 
-  public Map<java.lang.String, java.lang.String> getAttributes() {
+  public Map/*<java.lang.String, java.lang.String>*/ getAttributes() {
     return attributes;
   }
 
@@ -285,7 +285,7 @@ public class SWFWidget extends Widget {
   }
 
   public String getAttribute(String attributeName) {
-    return attributes.get(attributeName);
+    return (String) attributes.get(attributeName);
   }
 
   public String getSrc() {
