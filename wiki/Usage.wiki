@@ -6,7 +6,7 @@ To add gwt2swf to your project you need to update your projectName.gwt.xml file 
 <inherits name='pl.rmalinowski.gwt2swf.GWT2SWF' />
 
 into xml node 'module'. 
-And of course gwt2swf.jar should be in your project classpath.
+And of course gwt2swf.jar file should be in your project classpath.
 
 == Basic usage ==
 
@@ -69,7 +69,7 @@ The generated code will look like this (for firefox):
 {{{
   <object style="visibility: visible;"
           id="swfID_0"
-          data="pasek.swf"
+          data="my.swf"
           attributename2="attributeValue2"
           attributename1="attributeValue1"
           type="application/x-shockwave-flash"
